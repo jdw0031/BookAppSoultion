@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BookApp.Data;
-using BookApp.Models;
+using BookAppSolution.DataAccess;
+using BookAppSolution.Models;
 
 namespace BookApp.Controllers
 {
