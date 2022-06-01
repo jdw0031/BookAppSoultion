@@ -1,4 +1,5 @@
-﻿using BookAppSolution.DataAccess.Repository.IRepository;
+﻿using BookAppSolution.DataAccess.Data;
+using BookAppSolution.DataAccess.Repository.IRepository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
