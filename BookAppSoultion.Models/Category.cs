@@ -13,18 +13,5 @@ namespace BookAppSolution.Models
         public int DisplayOrder { get; set; }
 
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
-
-        public Category(int Id, string Name, int DisplayOrder)
-        {
-            this.Id = Id;
-            this.Name = Name;
-            this.DisplayOrder = DisplayOrder;
-        }
-
-        public Category()
-        {
-
-        }
-
     }
 }

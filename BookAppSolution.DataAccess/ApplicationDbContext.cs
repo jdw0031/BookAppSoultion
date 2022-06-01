@@ -1,4 +1,5 @@
 ﻿using BookAppSolution.Models;
+using BookAppSoultion.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookAppSolution.DataAccess
@@ -10,5 +11,7 @@ namespace BookAppSolution.DataAccess
             
         }
         public DbSet<Category> Categories {get; set;}
+
+        public DbSet<CoverType> CoverTypes { get; set;}
     }
 }

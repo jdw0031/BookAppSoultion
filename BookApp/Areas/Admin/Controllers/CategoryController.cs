@@ -1,20 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BookAppSolution.DataAccess;
 using BookAppSolution.Models;
+using BookAppSolution.DataAccess.Repository.IRepository;
 
-namespace BookApp.Controllers
+namespace BookApp.Areas.Admin.Controllers
 {
+
     public class CategoryController : Controller
     {
-        private readonly ApplicationDbContext db;
+        private readonly IUnitOfWork unitOfWork;
 
-        public CategoryController(ApplicationDbContext db)
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            this.db = db;
+            this.unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            IEnumerable<Category> objCategoryList = db.Categories;
+            IEnumerable<Category> objCategoryList = unitOfWork.Category.GetAll();
 
             return View(objCategoryList);
         }
@@ -28,38 +30,38 @@ namespace BookApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Category obj)
         {
-            if(obj.Name == obj.DisplayOrder.ToString())
+            if (obj.Name == obj.DisplayOrder.ToString())
             {
                 ModelState.AddModelError("Customer Error", "The Display Order cannot exactly make the Name");
             }
             if (ModelState.IsValid)
             {
-                db.Categories.Add(obj);
-                db.SaveChanges();
+                unitOfWork.Category.Add(obj);
+                unitOfWork.Save();
 
                 TempData["success"] = "Catergory Created Successfully";
 
                 return RedirectToAction("Index");
             }
             return View(obj);
-            
+
         }
         public IActionResult Edit(int? id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
-            var categoryFromDb = db.Categories.Find(id);
+            var categoryFromDb = unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
 
-            if(categoryFromDb == null)
+            if (categoryFromDb == null)
             {
                 return NotFound();
             }
 
             return View(categoryFromDb);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Category obj)
@@ -70,8 +72,8 @@ namespace BookApp.Controllers
             }
             if (ModelState.IsValid)
             {
-                db.Categories.Update(obj);
-                db.SaveChanges();
+                unitOfWork.Category.Update(obj);
+                unitOfWork.Save();
 
                 TempData["success"] = "Catergory Edited Successfully";
 
@@ -89,29 +91,29 @@ namespace BookApp.Controllers
             {
                 return NotFound();
             }
-            var categoryFromDb = db.Categories.Find(id);
+            var categoryFromDbFirst = unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
 
-            if (categoryFromDb == null)
+            if (categoryFromDbFirst == null)
             {
                 return NotFound();
             }
 
-            return View(categoryFromDb);
+            return View(categoryFromDbFirst);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult DeletePOST(int? id)
         {
-            var obj = db.Categories.Find(id);
+            var obj = unitOfWork.Category.GetFirstOrDefault(u => u.Id == id);
 
             if (obj == null)
             {
                 return NotFound();
             }
 
-            db.Categories.Remove(obj);
-            db.SaveChanges();
+            unitOfWork.Category.Remove(obj);
+            unitOfWork.Save();
 
             TempData["success"] = "Catergory Deleted Successfully";
 
