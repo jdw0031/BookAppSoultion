@@ -42,7 +42,7 @@ namespace BookAppSolution.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("BookAppSoultion.Models.CoverType", b =>
@@ -59,7 +59,7 @@ namespace BookAppSolution.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CoverTypes");
+                    b.ToTable("CoverTypes", (string)null);
                 });
 
             modelBuilder.Entity("BookAppSoultion.Models.Product", b =>
@@ -80,8 +80,9 @@ namespace BookAppSolution.DataAccess.Migrations
                     b.Property<int>("CoverTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Description")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ISBN")
                         .IsRequired()
@@ -113,7 +114,7 @@ namespace BookAppSolution.DataAccess.Migrations
 
                     b.HasIndex("CoverTypeId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("BookAppSoultion.Models.Product", b =>

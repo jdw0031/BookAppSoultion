@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookAppSolution.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220601145456_AddProducts")]
-    partial class AddProducts
+    [Migration("20220629150041_AddCategories")]
+    partial class AddCategories
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -82,8 +82,9 @@ namespace BookAppSolution.DataAccess.Migrations
                     b.Property<int>("CoverTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Description")
-                        .HasColumnType("int");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ISBN")
                         .IsRequired()
