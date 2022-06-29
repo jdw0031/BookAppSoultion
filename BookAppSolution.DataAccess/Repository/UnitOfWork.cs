@@ -17,6 +17,7 @@ namespace BookAppSolution.DataAccess.Repository
             this.db = db;
             Category = new CategoryRepository(db);
             CoverType = new CoverTypeRepository(db);
+            Product = new ProductRepository(db);
         }
         public ICategoryRepository Category { get; private set; }
         public ICoverTypeRepository CoverType { get; private set; }
