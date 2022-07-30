@@ -69,7 +69,7 @@
             <Select asp-for="Product.CoverTypeId"  asp-items="@Model.CoverTypeList" class="form-select">
                 <option disabled selected>--Selected CoverType--</option>
             </Select>
-            <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+            <span asp-validation-for="Product.CoverTypeId" class="text-danger"></span>
         </div>
         <div class="col-12">
             @if(Model.Product.Id != 0)
